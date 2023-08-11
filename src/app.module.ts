@@ -10,6 +10,7 @@ import { Role } from './role/entities/role.entity';
 import { Permission } from './permission/entities/permission.entity';
 import { RedisModule } from './redis/redis.module';
 import { EmailModule } from './email/email.module';
+import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
@@ -17,6 +18,18 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: 'src/.env',
+    }),
+    JwtModule.registerAsync({
+      global: true,
+      useFactory(configService: ConfigService) {
+        return {
+          secret: configService.get('jwt_secret'),
+          signOptions: {
+            expiresIn: '30m',
+          },
+        };
+      },
+      inject: [ConfigService],
     }),
     TypeOrmModule.forRootAsync({
       useFactory(configService: ConfigService) {
