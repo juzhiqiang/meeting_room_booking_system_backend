@@ -15,6 +15,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { EmailService } from 'src/email/email.service';
 import { RedisService } from 'src/redis/redis.service';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -52,5 +53,17 @@ export class UserController {
   async initData() {
     await this.userService.initData();
     return 'done';
+  }
+
+  @Post('login')
+  async login(@Body() loginUser: LoginUserDto) {
+    const vo = await this.userService.login(loginUser, false);
+    return vo;
+  }
+
+  @Post('admin/login')
+  async adminLogin(@Body() loginUser: LoginUserDto) {
+    const vo = await this.userService.login(loginUser, true);
+    return vo;
   }
 }
