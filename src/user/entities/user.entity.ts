@@ -19,6 +19,8 @@ export class User {
   @Column({
     length: 50,
     name: '用户名',
+    // 设置唯一不可重复
+    unique: true,
   })
   username: string;
 

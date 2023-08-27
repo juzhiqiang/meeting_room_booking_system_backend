@@ -7,9 +7,16 @@ import { InvokeRecordInterceptor } from './invoke-record.interceptor';
 import { UnloginFilter } from './unlogin.filter';
 import { CustomExceptionFilter } from './custom-exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.enableCors();
+  // 设置静态目录，可直接访问图片
+  app.useStaticAssets('uploads', {
+    prefix: '/uploads',
+  });
 
   // 开启校验
   app.useGlobalPipes(new ValidationPipe());
