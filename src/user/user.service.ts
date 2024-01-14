@@ -5,14 +5,12 @@ import {
   Injectable,
   Logger,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Like, Repository } from 'typeorm';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { RedisService } from 'src/redis/redis.service';
-import { EmailService } from 'src/email/email.service';
 import { Role } from 'src/role/entities/role.entity';
 import { Permission } from 'src/permission/entities/permission.entity';
 import { md5 } from 'src/utils/md5';
