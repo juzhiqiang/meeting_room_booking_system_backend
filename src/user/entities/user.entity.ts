@@ -18,7 +18,8 @@ export class User {
 
   @Column({
     length: 50,
-    name: '用户名',
+    name: 'username',
+    comment: '用户名',
     // 设置唯一不可重复
     unique: true,
   })
@@ -26,7 +27,8 @@ export class User {
 
   @Column({
     length: 50,
-    name: '密码',
+    name: 'password',
+    comment: '密码',
   })
   password: string;
 
